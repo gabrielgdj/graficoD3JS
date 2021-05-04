@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Grafico</title>
+    <link rel="stylesheet" href="grafico.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="grafico2.js"></script>
+
+    <script>
+      const clicado = (d) => alert(d.chave + ' = ' + d.valor);
+
+      onload = () => {
+        let dados = [
+          { chave: 'Frango', valor: 56 },
+          { chave: 'Carne', valor: 73 },
+          { chave: 'Vegetariano', valor: 20 },
+          { chave: 'Queijo', valor: 115 },
+          { chave: 'Goiabada', valor: 44 },
+          { chave: 'Banana', valor: 60 },
+          { chave: 'Calabresa', valor: 33 },
+        ];
+        let graf = new Grafico({
+          seletor: '#grafico',
+          dados: dados,
+          largura: 600,
+          altura: 400,
+          tituloX: 'Tipos de pastéis',
+          tituloY: 'Quantidade Diária',
+          callback: clicado,
+        });
+
+        crescente.onclick = () => {
+          dados.sort((a, b) => a.valor - b.valor);
+          graf.atualize(dados);
+        };
+
+        decrescente.onclick = () => {
+          dados.sort((a, b) => b.valor - a.valor);
+          graf.atualize(dados);
+        };
+
+        alfabetica.onclick = () => {
+          dados.sort((a, b) => a.chave.localeCompare(b.chave));
+          graf.atualize(dados);
+        };
+      };
+    </script>
+  </head>
+  <body>
+    <figure>
+      <figcaption>Vendas médias diárias - D3JS</figcaption>
+      <svg id="grafico"></svg>
+      <p>
+        <button class="btn btn-info" id="crescente">Ordem Crescente</button>
+        <button class="btn btn-info" id="decrescente">Ordem Decrescente</button>
+        <button class="btn btn-info" id="alfabetica">Ordem Alfabética</button>
+      </p>
+    </figure>
+  </body>
+</html>
